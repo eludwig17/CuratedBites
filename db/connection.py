@@ -21,7 +21,7 @@ def executeQuery(query, params=None, fetch=False, fetch_one=False):
         connect.commit()
         return cursor.lastrowid
     except Error as e:
-        conn.rollback()
+        connect.rollback()
         raise RuntimeError(str(e))
     finally:
         cursor.close()
