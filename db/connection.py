@@ -10,19 +10,19 @@ def getConnection():
         raise RuntimeError(f"DB connection failed")
 
 def executeQuery(query, params=None, fetch=False, fetch_one=False):
-    conn = getConnection()
-    cursor = conn.cursor(dictionary=True)
+    connect = getConnection()
+    cursor = connect.cursor(dictionary=True)
     try:
         cursor.execute(query, params or ())
         if fetch_one:
             return cursor.fetchone()
         if fetch:
             return cursor.fetchall()
-        conn.commit()
+        connect.commit()
         return cursor.lastrowid
     except Error as e:
         conn.rollback()
         raise RuntimeError(str(e))
     finally:
         cursor.close()
-        conn.close()
+        connect.close()
