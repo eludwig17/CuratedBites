@@ -2,6 +2,8 @@ CuratedBites | Server Side Dev Class Project
 -
 Flask REST API for restaurant discovery & review platform. Built using Python, Flask, and MySQL
 
+See [`finalDocsPackage/`](finalDocsPackage/) for the final ER diagram, relational schema, and schema evolution summary.
+
 Requirements
 -
 - Python
@@ -25,7 +27,7 @@ API Routes
 
 Data Flow Diagram
 -
-![DataFlowDiagram.png](DataFlowDiagram.png)
+![DataFlowDiagram.png](finalDocsPackage/DataFlowDiagram.png)
 
 ## Request Lifecycle
 The client sends an HTTP request to the Curated Bites API, then at the Flask routing layer will match the URL and method/function to the correct blueprint handler. Which will either be: restaurants, reviews, or users. Then before any database interaction occurs the handler
