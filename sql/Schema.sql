@@ -79,3 +79,23 @@ CREATE TABLE RestaurantDiet (
     FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID),
     FOREIGN KEY (DietaryOptionID) REFERENCES Diet(DietaryOptionID)
 );
+
+CREATE INDEX idxReviewRestaurant ON Review(RestaurantID);
+CREATE INDEX idxFavoriteUser ON Favorite(UserID);
+
+CREATE OR REPLACE VIEW RestaurantSummary AS
+SELECT
+    r.RestaurantID,
+    r.Name,
+    r.City,
+    r.PriceRange,
+    GROUP_CONCAT(DISTINCT c.Name ORDER BY c.Name SEPARATOR ', ') AS Cuisines,
+    COUNT(DISTINCT rv.ReviewID) AS ReviewCount,
+    ROUND(AVG(rv.Rating), 2) AS AvgRating,
+    COUNT(DISTINCT f.FavoriteID) AS FavoriteCount
+FROM Restaurant r
+LEFT JOIN RestaurantCuisine rc ON r.RestaurantID = rc.RestaurantID
+LEFT JOIN Cuisine c ON rc.CuisineID = c.CuisineID
+LEFT JOIN Review rv ON r.RestaurantID = rv.RestaurantID
+LEFT JOIN Favorite f ON r.RestaurantID = f.RestaurantID
+GROUP BY r.RestaurantID, r.Name, r.City, r.PriceRange;
