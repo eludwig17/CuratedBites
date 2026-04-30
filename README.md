@@ -12,11 +12,17 @@ Requirements
 Setup
 -
 1. Clone repository
-2. Install dependencies
+   2. git clone <url>
+   3. cd CuratedBites
+4. Create Virtual environment and install dependencies
    3. Using "pip install -r requirements.txt"
-4. Setup MySQL DB updating config.py if necessary based on login
+4. Restore the Database
+   5. `mysql -u root -p < sql/Schema.sql`
+   6. `mysql -u root -p < sql/Data.sql`
+4. Config DB access in config.py if necessary based on login
 5. Run application
    6. Using "flask run" in the terminal
+   7. localhost:5000
 
 API Routes
 -
